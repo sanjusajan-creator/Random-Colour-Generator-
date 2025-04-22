@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RANDOM COLOUR GENERATOR</title>
+  <link rel="stylesheet" href="bootstrap.css" type="text/css" media="all" />
+  <style>
+    .color-box {
+      height:50px;
+    }
+    .btn{
+    font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="sm fs-4 text-center fw-bold">RANDOM COLOUR GENERATOR</h1>
+  <div id="color-container" class="container-fluid">
+    <button class="btn btn-info position-fixed top-50 start-50 translate-middle">REFRESH</button>
+  </div>
+  <script>
+    let container=document.getElementById("color-container");
+    for(let i=0; i<100;i++){
+      let row=document.createElement("div");
+      row.className="row";
+      container.appendChild(row);
+      for(let j=0; j<2;j++){
+        let col=document.createElement("div");
+        col.className="col-5 color-box m-2 ms-3 ";
+        row.appendChild(col);
+      }
+    }
+    let boxes=document.getElementsByClassName("color-box");
+    function colorGenerator(){
+      for(let i=0;i<boxes.length;i++){
+      let r=Math.floor(Math.random()*256);
+      let g=Math.floor(Math.random()*256);
+        let b=Math.floor(Math.random()*256);
+        let colorCode=`rgb(${r},${g},${b})`;
+        boxes[i].style.backgroundColor=colorCode;
+        boxes[i].innerHTML=`<strong>${colorCode}</strong>`;
+        boxes[i].style.color="white";
+        let brightness =(r*299+g*587+b*114)/1000;
+        if(brightness<128){
+          boxes[i].style.color="white";
+        }
+        else{
+          boxes[i].style.color="black";
+        }
+      }
+    }
+    colorGenerator();
+    document.querySelector(".btn").addEventListener("click", colorGenerator);
+  </script>
+</body>
+
+</html>
